@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro</title>
+  <link type="text/css" rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <h1 class="title">Pomodoro</h1>
+  <nav class="mode">
+    <ul class="mode-lst">
+      <li class="mode-item active">pomodoro</li>
+      <li class="mode-item ">short break</li>
+      <li class="mode-item ">long break</li>
+    </ul>
+  </nav>
+  <main>
+
+    <div class="timer">
+      <div class="loader">
+        <svg width="250" height="250">
+          <circle cx='120' cy='120' r='120'></circle>
+          <circle cx='120' cy='120' r='120'></circle>
+        </svg>
+
+      </div>
+      <div class="content">
+        <p class="time">
+          25:00
+        </p>
+        <button class="pause-btn">
+          start</button>
+      </div>
+
+    </div>
+  </main>
+  <div class="set-icon icon">
+    &#9881;
+  </div>
+  <div class="modal">
+
+    <header class="modal-header row">
+      <h1 class="title">Settings</h1>
+      <div class="icon">&times;</div>
+    </header>
+
+    <div class="settings">
+      <section class="settings-time">
+        <h3>TIME (MINS)</h3>
+        <div class="row pickers">
+          <div class="picker">
+            <label>pomodoro</label>
+            <input type="number" min="15" value="25">
+          </div>
+          <div class="picker">
+            <label>short break</label>
+            <input type="number" min="1" value="5">
+          </div>
+          <div class="picker">
+            <label>long break</label>
+            <input type="number" min="1" value="15">
+          </div>
+
+        </div>
+        <div class="row color-select">
+          <h3>COLOR</h3>
+          <div class="colors row">
+            <div class="circle color orange active-color"></div>
+            <div class="circle color teal  "></div>
+            <div class="circle color blue "></div>
+          </div>
+        </div>
+        <div class="btn-div"><button class="apply">Apply</button></div>
+      </section>
+
+
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+
+</body>
+
+</html>
