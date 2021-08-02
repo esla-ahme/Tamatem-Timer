@@ -10,7 +10,6 @@
   --bg: #151544;
   --text: white;
   --sc:#ea4831;
-  --darker-sc:#df3c25;
   --darker-bg:#101035
 }
 .row{
@@ -30,6 +29,7 @@ body {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   background-color:var(--bg) ;
   color: var(--text);
+  padding: 0 1em;
 }
 
 
@@ -62,7 +62,7 @@ body {
 
 }
 .mode-item.active:hover{
-  background-color: var(--darker-sc);
+  filter:hue-rotate(-10deg);
 }
 .mode-item:nth-child(2){
   margin:0 0.5em;
@@ -158,7 +158,7 @@ stroke-linecap:round;
 
 /*====MODAL====*/
 .modal{
-  width:80%;
+  width:60%;
   min-height: 50px;
   background-color: white;
   position: fixed;
@@ -178,7 +178,7 @@ stroke-linecap:round;
 
 .pickers{
   margin-top: 0.7em;
-  justify-content: space-between;
+  justify-content: space-evenly;
   border-bottom:1px solid #eee ;
   padding-bottom: 1em;
   margin-bottom: .5em;
@@ -260,8 +260,42 @@ background-color: #157A6E;
   font-weight: bolder;
   margin: auto;
   margin-bottom: -2.5em;
+  cursor: pointer;
 }
 .btn-div{
   display: flex;
   width: 100%;
 }
+
+@media screen and (max-width:600px){
+
+  .picker input{
+    width: 5em;
+  }
+  .modal{
+    width: 90%;
+  }
+}
+
+@media screen and (max-width:400px){
+  body{
+    font-size: 14px;
+  }
+  .pickers{
+    flex-direction: column;
+  }
+  .color-select{
+        flex-direction: column;
+  }
+  .settings-time{
+    display: flex;
+    align-items: center;
+        flex-direction: column;
+
+  }
+   .picker input{
+    width: 12em;
+  }
+  
+}
+
