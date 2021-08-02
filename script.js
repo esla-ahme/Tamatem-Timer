@@ -51,18 +51,20 @@ clickedMode.addEventListener('click',
   (e) => {
     //select active mode 
     const modeActive = document.querySelector('.active')
-    //remove active class
-    modeActive.classList.remove('active')
-    //add active class to clicked mode 
-    e.target.classList.add('active');
-    if (e.target.innerText[0] == 'p')
-      settings["selected"] = 0;
-    else if (e.target.innerText[0] == 's')
-      settings["selected"] = 1;
-    else
-      settings["selected"] = 2;
+    if (e.target != colors) {
+      //remove active class
+      modeActive.classList.remove('active')
+      //add active class to clicked mode 
+      e.target.classList.add('active');
+      if (e.target.innerText[0] == 'p')
+        settings["selected"] = 0;
+      else if (e.target.innerText[0] == 's')
+        settings["selected"] = 1;
+      else
+        settings["selected"] = 2;
 
-    setTime(MODES[settings["selected"]])
+      setTime(MODES[settings["selected"]])
+    }
   }
 )
 
@@ -91,13 +93,17 @@ document.querySelector('.apply').addEventListener('click', handleApply)
 /*Change color */
 colors.addEventListener('click',
   (e) => {
-    //select active mode 
     const activeColor = document.querySelector('.active-color')
-    //remove active class
-    activeColor.classList.remove('active-color')
-    //add active class to clicked mode 
-    e.target.classList.add('active-color');
-    settings["color"] = getComputedStyle(e.target).backgroundColor
-    document.documentElement.style.setProperty("--sc", settings["color"])
+
+    if (e.target != colors) {
+      //select active mode 
+      //remove active class
+      activeColor.classList.remove('active-color')
+      //add active class to clicked mode 
+
+      e.target.classList.add('active-color');
+      settings["color"] = getComputedStyle(e.target).backgroundColor
+      document.documentElement.style.setProperty("--sc", settings["color"])
+    }
   }
 )
