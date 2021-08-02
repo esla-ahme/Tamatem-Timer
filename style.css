@@ -267,6 +267,15 @@ background-color: #157A6E;
   width: 100%;
 }
 
+@media screen and (max-width:756px){
+
+  .picker input{
+    width: 6em;
+  }
+
+}
+
+
 @media screen and (max-width:600px){
 
   .picker input{
