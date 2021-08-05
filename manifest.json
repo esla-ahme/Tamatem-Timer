@@ -1,0 +1,13 @@
+{
+  "name": "Tamatem",
+  "description": "configurable timer with three modes",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_popup": "pomodoro.html",
+    "default_icon": "icon.png"
+  }
+}
