@@ -1,14 +1,24 @@
-
 /*====settings object*/
 const MODES = ["pomodoro", "shortBreak", "longBreak"]
-const settings = {
-  color: "#ea4831",
-  pomodoro: 25,
-  shortBreak: 1,
-  longBreak: 15,
-  selected: 0
+const localSettings = JSON.parse(localStorage.getItem('settings'))
+let settings;
+if (!localSettings) {
+
+  settings = {
+    color: "#ea4831",
+    pomodoro: 25,
+    shortBreak: 1,
+    longBreak: 15,
+    selected: 0
+  }
+
+  localStorage.setItem('settings', JSON.stringify(settings))
 }
-let currentTimerValue, timerInSec, progress;
+else {
+  settings = localSettings
+
+}
+let currentTimerValue, timerInSec, progress, intervalFn, running = false;
 
 /*Selectors*/
 
@@ -17,7 +27,7 @@ const clickedMode = document.querySelector('.mode-lst')
 
 /*Timer selectors*/
 time = document.querySelector('.time')
-
+start = document.querySelector('.pause-btn')
 /*Modal Selectors*/
 const icons = document.querySelectorAll('.icon')
 const modal = document.querySelector('.modal')
@@ -37,6 +47,8 @@ if (document) {
   shortTime.value = settings["shortBreak"]
   longTime.value = settings["longBreak"]
   time.innerText = settings["pomodoro"] + ":00"
+  document.documentElement.style.setProperty("--sc", settings["color"])
+
   resetTime()
 }
 /*Timer*/
@@ -44,7 +56,6 @@ if (document) {
 const setTime = (mode, sec = "00") => {
   time.innerText = settings[mode] + ":" + sec
 }
-
 
 function resetTime() {
   timerInSec = 60 * Number(settings[MODES[settings["selected"]]])
@@ -55,25 +66,53 @@ function resetTime() {
 }
 function changeTime() {
   if (currentTimerValue == 0) {
-    var audio = new Audio('alarm.wav');
+    const audio = new Audio('alarm.wav');
     audio.play();
+    clearInterval(intervalFn)
     resetTime()
+    running = false;
+    start.innerHTML = "Wow Great work,<br> start Again?"
     return
   }
   currentTimerValue--;
 
-  min = Math.floor(currentTimerValue / 60);
-  sec = currentTimerValue % 60;
+  min = String(Math.floor(currentTimerValue / 60));
+  sec = String(currentTimerValue % 60);
+  if (min.length == 1) {
+    min = "0" + min
+  }
+  if (sec.length == 1) {
+    sec = "0" + sec
+  }
   time.innerText = `${min}:${sec}`
 
 }
-setInterval(changeTime, 1000);
-setInterval(() => {
-  progress = Math.ceil((timerInSec - currentTimerValue) / timerInSec * 100)
-  timeProgressBar.style.strokeDasharray = `calc(${progress}*754/100),754px`
+const timerInterval = () => {
+  intervalFn = setInterval(changeTime, 1000);
+}
 
-}, 5000)
+const updateLoadingbar =
+  setInterval(() => {
+    progress = Math.ceil((timerInSec - currentTimerValue) / timerInSec * 100)
+    timeProgressBar.style.strokeDasharray = `calc(${progress}*754/100),754px`
 
+  }, 5000)
+
+
+
+start.addEventListener('click', () => {
+  if (running) {
+    clearInterval(intervalFn)
+    start.innerText = "s t a r t"
+  }
+  else if (!running) {
+
+    timerInterval();
+    start.innerText = "p a u s e"
+
+  }
+  running = !running
+})
 
 
 /* toggle active mode */
@@ -93,8 +132,13 @@ clickedMode.addEventListener('click',
       else
         settings["selected"] = 2;
 
+      localStorage.setItem('settings', JSON.stringify(settings))
       setTime(MODES[settings["selected"]])
       resetTime()
+      running = false;
+      start.innerText = "s t a r t"
+
+      clearInterval(intervalFn)
     }
   }
 )
@@ -117,6 +161,8 @@ const handleApply = () => {
   settings["shortBreak"] = Number(shortTime.value)
   settings["longBreak"] = Number(longTime.value)
   setTime(MODES[settings["selected"]])
+
+  localStorage.setItem('settings', JSON.stringify(settings))
   resetTime()
   toggleModel()
 }
@@ -136,6 +182,8 @@ colors.addEventListener('click',
       e.target.classList.add('active-color');
       settings["color"] = getComputedStyle(e.target).backgroundColor
       document.documentElement.style.setProperty("--sc", settings["color"])
+
+      localStorage.setItem('settings', JSON.stringify(settings))
     }
   }
 )
