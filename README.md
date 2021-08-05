@@ -9,4 +9,4 @@ Video Demo: https://youtu.be/KeJEeNMMFbE
 
 Screenshots: 
 ![desctop view](screenshots/1.png)
-![mobile view/ settings](screenshots/2.png) ![mobile view](screenshots/3.png)
+![mobile view/ settings](screenshots/2.png) ![mobile view](screenshots/3.png) ![tablet view](screenshots/4.png)
