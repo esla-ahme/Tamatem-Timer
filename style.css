@@ -138,9 +138,8 @@ font-family: 'Roboto', sans-serif;
   font-size: 1rem;
   text-align:center;
     border-radius:120px ;
-      padding: 0.5em;
-
-
+overflow: hidden;
+padding: 0.5em;
 }
 .pause-btn:hover{
   color:#ddd;
